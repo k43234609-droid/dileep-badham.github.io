@@ -48,7 +48,7 @@
     -webkit-font-smoothing: antialiased;
     transition: background .3s ease, color .3s ease;
   }
-  h1,h2,h3,h4{ font-family:'Poppins', sans-serif; margin:0; }
+  h1,h2,h3{ font-family:'Poppins', sans-serif; margin:0; }
   a{ color: var(--accent); text-decoration:none; }
   button{ font-family: inherit; cursor:pointer; }
 
@@ -71,10 +71,10 @@
     background: var(--card); border:1px solid var(--border); color: var(--text);
     width:38px; height:38px; border-radius:10px;
     display:flex; align-items:center; justify-content:center;
-    transition: border-color .2s, transform .2s, background-color .2s;
+    transition: border-color .2s, transform .2s;
   }
   .icon-btn:hover{ border-color: var(--accent); transform: translateY(-1px); }
-  .icon-btn svg{ width:18px; height:18px; fill: currentColor; }
+  .icon-btn svg{ width:18px; height:18px; }
 
   .nav-links{
     display:flex; gap:26px; font-size:14.5px; font-weight:500;
@@ -83,19 +83,10 @@
     flex-direction:column; box-shadow: 0 12px 32px var(--shadow);
     opacity:0; pointer-events:none; transform: translateY(-8px);
     transition: opacity .2s ease, transform .2s ease;
-    z-index: 100;
   }
   .nav-links.open{ opacity:1; pointer-events:auto; transform:translateY(0); }
   .nav-links a{ color: var(--text-dim); }
   .nav-links a:hover{ color: var(--accent); }
-
-  @media(min-width: 768px) {
-    .nav-links {
-      position: static; opacity: 1; pointer-events: auto; transform: none;
-      flex-direction: row; background: none; border: none; padding: 0; box-shadow: none;
-    }
-    .menu-toggle { display: none; }
-  }
 
   /* Hero */
   .hero{
@@ -164,10 +155,9 @@
     box-shadow: 0 20px 40px var(--shadow);
   }
   .project-visual{
-    background: var(--bg-alt); padding:40px 18px; border-bottom:1px solid var(--border);
-    display: flex; justify-content: center; align-items: center; color: var(--text-faint);
+    background: var(--bg-alt); padding:22px 18px; border-bottom:1px solid var(--border);
   }
-  .project-visual svg{ width:64px; height:64px; display:block; fill: currentColor; }
+  .project-visual svg{ width:100%; height:auto; display:block; }
   .project-body{ padding:22px 24px 26px; }
   .project-body h3{ font-size:19px; font-weight:700; margin-bottom:8px; }
   .project-body p{ color: var(--text-dim); font-size:14.5px; margin-bottom:16px; }
@@ -181,7 +171,7 @@
     font-weight:600; font-size:14.5px; color: var(--accent);
     display:inline-flex; align-items:center; gap:6px; background:none; border:none; padding:0;
   }
-  .details-link svg{ width:15px; height:15px; transition: transform .2s ease; fill: currentColor; }
+  .details-link svg{ width:15px; height:15px; transition: transform .2s ease; }
   .details-link:hover svg{ transform: translateX(4px); }
 
   /* Skills */
@@ -206,31 +196,466 @@
   }
   .tl-item:last-child{ padding-bottom:0; }
   .tl-dot-col{ display:flex; flex-direction:column; align-items:center; }
-  .tl-dot{ width:12px; height:12px; background: var(--accent); border-radius:50%; margin-top:6px; z-index:2; }
-  .tl-line{ width:2px; flex-grow:1; background: var(--border); margin-top:4px; z-index:1; }
-  .tl-item:last-child .tl-line { display: none; }
-  
-  .tl-content{ background: var(--card); border:1px solid var(--border); padding:20px 24px; border-radius:12px; }
-  .tl-header{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
-  .tl-role{ font-size:17px; font-weight:700; margin:0; }
-  .tl-company{ font-size:14.5px; color: var(--accent); font-weight:500; }
-  .tl-date{ font-size:13px; color: var(--text-faint); font-weight:500; }
-  .tl-desc{ font-size:14.5px; color: var(--text-dim); margin:0; }
+  .tl-dot{ width:14px; height:14px; border-radius:50%; background: var(--accent); margin-top:4px; }
+  .tl-line{ flex:1; width:2px; background: var(--border); margin-top:6px; }
+  .tl-item:last-child .tl-line{ display:none; }
+  .tl-card{
+    background: var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 22px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .tl-card:hover{ border-color: var(--accent); transform: translateX(4px); }
+  .tl-role{ font-weight:700; font-size:16px; }
+  .tl-meta{ color: var(--accent); font-size:13px; font-weight:600; margin:2px 0 10px; }
+  .tl-desc{ color: var(--text-dim); font-size:14px; margin:0; }
+
+  /* Education */
+  .edu-grid{ display:grid; gap:16px; max-width: 720px; margin:0 auto; }
+  .edu-row{
+    background: var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    transition: border-color .2s ease;
+  }
+  .edu-row:hover{ border-color: var(--accent); }
+  .edu-name{ font-weight:700; font-size:15px; }
+  .edu-inst{ color: var(--text-dim); font-size:13.5px; }
+  .edu-result{ color: var(--accent); font-weight:700; font-size:14px; }
+
+  /* Two col cert/strength */
+  .info-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:760px; margin:0 auto; }
+  @media (max-width:640px){ .info-grid{ grid-template-columns:1fr; } }
+  .info-card{ background: var(--card); border:1px solid var(--border); border-radius:14px; padding:22px 24px; }
+  .info-card h4{ font-size:15px; font-weight:700; margin-bottom:14px; color: var(--accent); }
+  .info-card ul{ list-style:none; margin:0; padding:0; }
+  .info-card li{ font-size:14px; color: var(--text-dim); padding:5px 0 5px 18px; position:relative; }
+  .info-card li::before{ content:"•"; position:absolute; left:0; color: var(--accent); }
 
   /* Footer */
-  footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-faint); font-size: 14px; }
+  footer{ padding:60px 0; text-align:center; border-top:1px solid var(--border); }
+  footer h2{ font-size: clamp(22px,4vw,30px); margin-bottom:14px; }
+  footer p{ color: var(--text-dim); margin-bottom:26px; }
+  .footer-links{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:28px; font-size:14px; }
+  .footer-links a{ color: var(--text-dim); }
+  .footer-links a:hover{ color: var(--accent); }
+  .footer-note{ margin-top:30px; font-size:13px; color: var(--text-faint); }
+
+  /* Modal */
+  .modal-overlay{
+    position: fixed; inset:0; background: rgba(5,8,16,0.7);
+    backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center; padding:20px; z-index:100;
+    opacity:0; pointer-events:none; transition: opacity .25s ease;
+  }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal{
+    background: var(--card); border:1px solid var(--border); border-radius:16px;
+    max-width:640px; width:100%; max-height:88vh; overflow-y:auto;
+    transform: translateY(20px) scale(0.97); transition: transform .25s ease;
+  }
+  .modal-overlay.open .modal{ transform: translateY(0) scale(1); }
+  .modal-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 26px; border-bottom:1px solid var(--border);
+    position:sticky; top:0; background: var(--card);
+  }
+  .modal-head h3{ font-size:18px; font-weight:700; }
+  .modal-close{
+    background:none; border:none; color: var(--text-faint); font-size:24px; line-height:1;
+    padding:4px 8px; border-radius:6px; transition: color .15s, background .15s;
+  }
+  .modal-close:hover{ color: var(--text); background: var(--bg-alt); }
+  .modal-body{ padding:26px; }
+  .modal-body svg{ width:100%; height:auto; margin-bottom:22px; }
+  .modal-label{
+    font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+    color: var(--accent); margin:20px 0 10px;
+  }
+  .modal-label:first-of-type{ margin-top:0; }
+  .modal-body p{ color: var(--text-dim); font-size:14.5px; margin:0; }
+  .modal-body ul{ list-style:none; margin:0; padding:0; }
+  .modal-body ul li{ font-size:14.5px; color: var(--text-dim); padding:5px 0 5px 20px; position:relative; }
+  .modal-body ul li::before{ content:"✓"; position:absolute; left:0; color: var(--accent); font-weight:700; font-size:12px; top:7px; }
+  .modal-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+    .hero-eyebrow, .hero h1, .hero p, .hero-actions{ animation:none !important; opacity:1 !important; }
+  }
 </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <header>
-    <div class="nav-inner">
-      <div class="brand">DKB</div>
-      <div class="nav-actions">
-        <nav class="nav-links" id="navLinks">
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-        </nav>
-        <!-- Theme Toggle Button -->
+<header>
+  <div class="nav-inner">
+    <div class="brand">Dileep</div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn" id="menuToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Open to AI / Software Engineering Internships</span>
+    <h1>Hi, I'm <span>Dileep Kumar Badham</span></h1>
+    <p>Computer Science graduate who builds practical tools with the GPT-4 API and Python — currently looking for an entry-level AI or software engineering role.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">
+        View Projects
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="resume.pdf" download class="btn btn-outline">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        Download Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>My <span>Projects</span></h2>
+      <p>Two builds that reflect how I actually like to work — applied AI and hands-on cloud infrastructure.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-visual">
+          <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="30" width="110" height="90" rx="8" fill="var(--bg-alt)" stroke="var(--border)"/>
+            <rect x="22" y="44" width="60" height="6" rx="2" fill="#C1666B" opacity="0.7"/>
+            <rect x="22" y="58" width="80" height="6" rx="2" fill="var(--text-faint)"/>
+            <rect x="22" y="72" width="70" height="6" rx="2" fill="var(--text-faint)"/>
+            <rect x="22" y="86" width="50" height="6" rx="2" fill="#C1666B" opacity="0.7"/>
+            <path d="M128 75 L168 75" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#a1)"/>
+            <rect x="175" y="40" width="90" height="70" rx="10" fill="var(--bg-alt)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="220" y="70" text-anchor="middle" fill="var(--accent)" font-family="Poppins" font-weight="700" font-size="13">GPT-4</text>
+            <text x="220" y="86" text-anchor="middle" fill="var(--accent)" font-size="10">API</text>
+            <path d="M272 75 L312 75" stroke="#7FB77E" stroke-width="2.5" marker-end="url(#a2)"/>
+            <rect x="280" y="30" width="110" height="90" rx="8" fill="var(--bg-alt)" stroke="var(--border)"/>
+            <rect x="292" y="44" width="70" height="6" rx="2" fill="#7FB77E"/>
+            <rect x="292" y="58" width="50" height="6" rx="2" fill="#7FB77E"/>
+            <rect x="292" y="72" width="80" height="6" rx="2" fill="#7FB77E"/>
+            <rect x="292" y="86" width="60" height="6" rx="2" fill="#7FB77E"/>
+            <defs>
+              <marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0L8,4L0,8Z" fill="var(--accent)"/></marker>
+              <marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0L8,4L0,8Z" fill="#7FB77E"/></marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="project-body">
+          <h3>AI-Powered Code Review Assistant</h3>
+          <p>An LLM-powered tool that analyzes submitted code and automatically generates suggested improvements.</p>
+          <div class="tech-row">
+            <span class="tech-chip">Python</span>
+            <span class="tech-chip">GPT-4 API</span>
+            <span class="tech-chip">Prompt Engineering</span>
+          </div>
+          <div class="project-links">
+            <button class="details-link" onclick="openModal('m1')">
+              View Details
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-visual">
+          <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="55" width="40" height="50" rx="4" fill="var(--bg-alt)" stroke="var(--border)"/>
+            <rect x="70" y="35" width="40" height="50" rx="4" fill="var(--bg-alt)" stroke="var(--border)"/>
+            <rect x="18" y="95" width="40" height="45" rx="4" fill="var(--bg-alt)" stroke="var(--border)"/>
+            <text x="38" y="84" text-anchor="middle" fill="var(--text-faint)" font-size="9">.zip</text>
+            <text x="90" y="64" text-anchor="middle" fill="var(--text-faint)" font-size="9">.pdf</text>
+            <text x="38" y="122" text-anchor="middle" fill="var(--text-faint)" font-size="9">.png</text>
+            <path d="M120 78 L165 78" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#a3)"/>
+            <path d="M255 50
+                     C230 50, 218 70, 230 82
+                     C218 86, 218 105, 240 107
+                     L310 107
+                     C335 107, 335 82, 314 78
+                     C322 55, 285 47, 268 58
+                     C263 53, 258 50, 255 50 Z"
+                  fill="var(--bg-alt)" stroke="var(--accent)" stroke-width="1.5"/>
+            <text x="272" y="82" text-anchor="middle" fill="var(--accent)" font-family="Poppins" font-weight="700" font-size="13">S3</text>
+            <rect x="335" y="60" width="14" height="14" rx="3" fill="#7FB77E"/>
+            <text x="380" y="70" text-anchor="middle" fill="#7FB77E" font-size="9">secure</text>
+            <defs>
+              <marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0L8,4L0,8Z" fill="var(--accent)"/></marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="project-body">
+          <h3>Cloud File Storage System</h3>
+          <p>A cloud-based file storage and retrieval system built on AWS S3 with secure uploads.</p>
+          <div class="tech-row">
+            <span class="tech-chip">AWS S3</span>
+            <span class="tech-chip">Cloud Storage</span>
+          </div>
+          <div class="project-links">
+            <button class="details-link" onclick="openModal('m2')">
+              View Details
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills &amp; <span>Tools</span></h2>
+      <p>What I reach for when building something.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>Programming</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>AI / LLM</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">GPT-4 API</span>
+          <span class="skill-tag">Prompt Design</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Cloud &amp; Tools</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS S3</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">MS Excel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Work <span>Experience</span></h2>
+      <p>Internships that shaped how I build.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">Full Stack Java Development Intern</div>
+          <div class="tl-meta">Talent Shine Pvt. Ltd. · Java, SQL</div>
+          <p class="tl-desc">Assisted in developing web applications using Java full-stack technologies, working across backend logic and database operations. Worked on debugging, testing, and improving application performance.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-card">
+          <div class="tl-role">AWS Intern</div>
+          <div class="tl-meta">BrainOvision · AWS, Cloud Computing</div>
+          <p class="tl-desc">Learned cloud computing concepts and explored services for application deployment, storage, and scalability.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-row">
+        <div>
+          <div class="edu-name">Bachelor of Technology</div>
+          <div class="edu-inst">Sir CR Reddy College of Engineering, Eluru · 2021–2025</div>
+        </div>
+        <div class="edu-result">CGPA 7.79</div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="edu-name">Intermediate (MPC)</div>
+          <div class="edu-inst">SASI Junior College, Velivennu · 2019–2021</div>
+        </div>
+        <div class="edu-result">91.9%</div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="edu-name">SSC</div>
+          <div class="edu-inst">Lotus High School · 2019</div>
+        </div>
+        <div class="edu-result">74.6%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Certifications</h4>
+        <ul>
+          <li>Python for Data Science — IBM Skills Network</li>
+          <li>Java Programming — NPTEL, 2024</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Strengths</h4>
+        <ul>
+          <li>Genuine curiosity about applied AI</li>
+          <li>Strong programming fundamentals</li>
+          <li>Quick learner, collaborative</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="reveal">
+  <div class="wrap">
+    <h2>Let's work <span style="color:var(--accent)">together</span></h2>
+    <p>Open to entry-level AI / Software Engineering internships.</p>
+    <a href="mailto:dileepkumarbadham@gmail.com" class="btn btn-primary">Say Hello</a>
+    <div class="footer-links">
+      <a href="mailto:dileepkumarbadham@gmail.com">dileepkumarbadham@gmail.com</a>
+      <a href="tel:+919542167927">+91 95421 67927</a>
+      <a href="https://linkedin.com/in/dileep-kumar-badham" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="footer-note">Tadepalligudem, Andhra Pradesh, India</div>
+  </div>
+</footer>
+
+<!-- Modal 1 -->
+<div class="modal-overlay" id="m1" onclick="if(event.target===this) closeModal('m1')">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>AI-Powered Code Review Assistant</h3>
+      <button class="modal-close" onclick="closeModal('m1')" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-label">Overview</div>
+      <p>Analyzes submitted source code and returns structured, actionable improvement suggestions by orchestrating a Python backend with the GPT-4 API — automating the first pass of a code review.</p>
+
+      <div class="modal-label">Key Features</div>
+      <ul>
+        <li>Accepts source files and parses them into review-ready chunks</li>
+        <li>Constructs prompts that frame the code for consistent, targeted feedback</li>
+        <li>Sends requests to the GPT-4 API and parses structured responses</li>
+        <li>Surfaces issues and fix suggestions in a readable format</li>
+      </ul>
+
+      <div class="modal-label">What I Learned</div>
+      <p>Iterating on prompt design across real test samples taught me how much output quality depends on how the request is framed, not just the model. I also learned to build an integration layer that keeps LLM responses consistent and parseable rather than treating the API as a black box.</p>
+
+      <div class="modal-label">Tech Stack</div>
+      <div class="modal-tags">
+        <span class="tech-chip">Python</span>
+        <span class="tech-chip">GPT-4 API</span>
+        <span class="tech-chip">Prompt Engineering</span>
+        <span class="tech-chip">JSON Parsing</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2 -->
+<div class="modal-overlay" id="m2" onclick="if(event.target===this) closeModal('m2')">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Cloud File Storage System</h3>
+      <button class="modal-close" onclick="closeModal('m2')" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-label">Overview</div>
+      <p>A cloud-based storage and retrieval system built on AWS S3, focused on secure uploads and reliable access to stored files.</p>
+
+      <div class="modal-label">Key Features</div>
+      <ul>
+        <li>Handles file uploads and routes them into an S3 bucket</li>
+        <li>Applies access policies to keep stored files secure</li>
+        <li>Supports retrieval of stored files on demand</li>
+        <li>Works directly with AWS cloud infrastructure end to end</li>
+      </ul>
+
+      <div class="modal-label">What I Learned</div>
+      <p>Working directly with S3 gave me a practical understanding of cloud storage patterns — bucket policies, secure upload flows, and how scalable storage actually behaves outside of a tutorial.</p>
+
+      <div class="modal-label">Tech Stack</div>
+      <div class="modal-tags">
+        <span class="tech-chip">AWS S3</span>
+        <span class="tech-chip">Cloud Storage</span>
+        <span class="tech-chip">Access Policies</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Theme toggle
+  var htmlEl = document.documentElement;
+  var themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', function(){
+    var current = htmlEl.getAttribute('data-theme');
+    htmlEl.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  });
+
+  // Menu toggle
+  var menuToggle = document.getElementById('menuToggle');
+  var navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+  });
+
+  // Modals
+  function openModal(id){
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      document.querySelectorAll('.modal-overlay.open').forEach(function(m){ m.classList.remove('open'); });
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Scroll reveal
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+</script>
+
+</body>
+</html>
