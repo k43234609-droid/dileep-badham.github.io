@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dileep Kumar Badham — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14171C;
+    --panel: #1B1F27;
+    --panel-raised: #21252E;
+    --line: #2C313C;
+    --text: #E8E6E1;
+    --text-dim: #9BA1AE;
+    --text-faint: #5C6273;
+    --add: #7FB77E;
+    --add-bg: rgba(127,183,126,0.10);
+    --remove: #C1666B;
+    --remove-bg: rgba(193,102,107,0.10);
+    --accent: #E3B23C;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap{ max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* Titlebar */
+  .titlebar{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(20,23,28,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .titlebar-inner{
+    max-width: 860px; margin: 0 auto; padding: 12px 24px;
+    display:flex; align-items:center; gap:16px;
+  }
+  .dots{ display:flex; gap:6px; }
+  .dots span{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dots span:nth-child(1){ background:#C1666B; }
+  .dots span:nth-child(2){ background:#E3B23C; }
+  .dots span:nth-child(3){ background:#7FB77E; }
+  .titlebar-path{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-dim);
+    flex:1;
+  }
+  .titlebar-nav{ display:flex; gap:18px; font-family: var(--mono); font-size:12.5px; }
+  .titlebar-nav a{ color: var(--text-dim); }
+  .titlebar-nav a:hover{ color: var(--accent); text-decoration:none; }
+  @media (max-width: 640px){ .titlebar-nav{ display:none; } }
+
+  /* Hero */
+  .hero{ padding: 64px 0 40px; }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-faint);
+    letter-spacing: 0.04em; margin-bottom: 18px;
+  }
+  .diff-block{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .diff-header{
+    padding: 10px 16px; border-bottom: 1px solid var(--line);
+    color: var(--text-faint); font-size: 12px;
+  }
+  .diff-line{ padding: 3px 16px; white-space: pre-wrap; }
+  .diff-line.remove{ background: var(--remove-bg); color: var(--remove); }
+  .diff-line.add{ background: var(--add-bg); color: var(--add); }
+  .diff-line .marker{ opacity:0.7; margin-right: 4px; }
+
+  h1{
+    font-family: var(--mono);
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .role{
+    font-size: 17px; color: var(--text-dim); margin: 0 0 20px;
+  }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap: 14px 22px;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .contact-row a{ color: var(--text-dim); }
+  .contact-row a:hover{ color: var(--accent); }
+
+  /* Sections */
+  section{ padding: 44px 0; border-top: 1px solid var(--line); }
+  .file-path{
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    margin: 0 0 20px; display:flex; align-items:center; gap:8px;
+  }
+  .file-path::before{ content: "›"; color: var(--text-faint); }
+
+  p.body-text{ color: var(--text-dim); max-width: 620px; }
+
+  /* Skills */
+  .skill-group{ margin-bottom: 22px; }
+  .skill-group h3{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-faint);
+    font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
+    margin: 0 0 10px;
+  }
+  .pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    font-family: var(--mono); font-size: 13px;
+    background: var(--panel-raised); border: 1px solid var(--line);
+    color: var(--text); padding: 5px 12px; border-radius: 5px;
+  }
+
+  /* Projects */
+  .project{
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 22px 24px; margin-bottom: 18px;
+  }
+  .project-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    flex-wrap: wrap; gap: 8px; margin-bottom: 4px;
+  }
+  .project-title{ font-family: var(--mono); font-size: 15.5px; font-weight:600; color: var(--text); }
+  .project-tag{ font-family: var(--mono); font-size: 11.5px; color: var(--text-faint); }
+  .project-sub{ font-size: 13px; color: var(--text-faint); margin: 0 0 14px; }
+  ul.diff-list{ list-style: none; margin:0; padding:0; }
+  ul.diff-list li{
+    font-size: 14px; color: var(--text-dim); padding: 3px 0 3px 20px; position: relative;
+  }
+  ul.diff-list li::before{
+    content: "+"; position:absolute; left:0; color: var(--add);
+    font-family: var(--mono); font-weight:700;
+  }
+
+  /* Experience — git log style */
+  .commit{ display:flex; gap:16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .commit:last-child{ border-bottom:none; }
+  .commit-dot{
+    width:8px; height:8px; border-radius:50%; background: var(--accent);
+    margin-top: 7px; flex-shrink:0;
+  }
+  .commit-role{ font-weight:600; font-size:15px; color: var(--text); }
+  .commit-meta{ font-family: var(--mono); font-size:12px; color: var(--text-faint); margin: 2px 0 8px; }
+  .commit-desc{ font-size: 13.5px; color: var(--text-dim); margin:0; }
+
+  /* Education table */
+  table{ width:100%; border-collapse: collapse; font-size: 14px; }
+  th{
+    text-align:left; font-family: var(--mono); font-size:11.5px; color: var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.04em; font-weight:500;
+    padding: 8px 12px; border-bottom: 1px solid var(--line);
+  }
+  td{ padding: 12px; border-bottom: 1px solid var(--line); color: var(--text-dim); }
+  td:first-child, th:first-child{ padding-left:0; color: var(--text); }
+  @media (max-width: 600px){
+    table, thead, tbody, th, td, tr{ display:block; }
+    thead{ display:none; }
+    tr{ padding: 12px 0; border-bottom: 1px solid var(--line); }
+    td{ border:none; padding: 2px 0; }
+    td:first-child{ font-weight:600; font-size:15px; }
+  }
+
+  /* Certs / strengths */
+  .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media (max-width: 640px){ .two-col{ grid-template-columns: 1fr; } }
+  .list-plain{ list-style:none; margin:0; padding:0; }
+  .list-plain li{
+    font-size: 14px; color: var(--text-dim); padding: 6px 0 6px 18px; position:relative;
+  }
+  .list-plain li::before{ content:"·"; position:absolute; left:0; color: var(--accent); font-weight:700; }
+
+  /* Footer */
+  footer{ padding: 48px 0 64px; }
+  .prompt{
+    font-family: var(--mono); font-size: 14px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px;
+  }
+  .prompt-line{ margin: 4px 0; }
+  .prompt-line .sym{ color: var(--accent); margin-right: 8px; }
+  .prompt-line a{ color: var(--text); }
+  .prompt-line a:hover{ color: var(--accent); }
+  .footnote{ margin-top: 20px; font-size:12.5px; color: var(--text-faint); font-family: var(--mono); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="titlebar-inner">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="titlebar-path">dileep-badham — portfolio.py</div>
+    <nav class="titlebar-nav">
+      <a href="#profile">profile</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#education">education</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="eyebrow">// self_review.diff</div>
+    <div class="diff-block">
+      <div class="diff-header">candidate_summary.py</div>
+      <div class="diff-line remove"><span class="marker">−</span>def get_candidate():</div>
+      <div class="diff-line remove"><span class="marker">−</span>    return "another CS graduate looking for a break"</div>
+      <div class="diff-line add"><span class="marker">+</span>def get_candidate():</div>
+      <div class="diff-line add"><span class="marker">+</span>    return "built and shipped an LLM-powered code</div>
+      <div class="diff-line add"><span class="marker">+</span>            review tool using the GPT-4 API"</div>
+    </div>
+
+    <h1>Dileep Kumar Badham</h1>
+    <p class="role">Computer Science Graduate · Applied AI &amp; Software Engineering</p>
+    <div class="contact-row">
+      <a href="mailto:dileepkumarbadham@gmail.com">dileepkumarbadham@gmail.com</a>
+      <a href="tel:+919542167927">+91 95421 67927</a>
+      <a href="https://linkedin.com/in/dileep-kumar-badham" target="_blank" rel="noopener">linkedin.com/in/dileep-kumar-badham</a>
+      <span style="color:var(--text-faint);">Tadepalligudem, India</span>
+    </div>
+  </section>
+
+  <section id="profile">
+    <div class="file-path">~/profile.md</div>
+    <p class="body-text">
+      Computer Science graduate with hands-on experience building an LLM-powered application using
+      Python and the GPT-4 API. Comfortable working with structured data, API integration, and cloud
+      services (AWS), with additional exposure to backend development through a Java full-stack
+      internship. Strong programming fundamentals, genuine curiosity about applied AI, and a fast
+      learning mindset — seeking an entry-level AI / Software Engineering internship.
+    </p>
+  </section>
+
+  <section id="skills">
+    <div class="file-path">~/skills.json</div>
+
+    <div class="skill-group">
+      <h3>Programming</h3>
+      <div class="pills">
+        <span class="pill">Python</span>
+        <span class="pill">Java</span>
+        <span class="pill">C</span>
+        <span class="pill">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>AI / LLM</h3>
+      <div class="pills">
+        <span class="pill">GPT-4 API Integration</span>
+        <span class="pill">Prompt-Driven Feature Design</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <h3>Cloud &amp; Tools</h3>
+      <div class="pills">
+        <span class="pill">AWS (S3)</span>
+        <span class="pill">Git</span>
+        <span class="pill">VS Code</span>
+        <span class="pill">MS Excel</span>
+        <span class="pill">MS Office</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="file-path">~/projects/</div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="project-title">AI-Powered Code Review Assistant</span>
+        <span class="project-tag">Python · GPT-4 API · Final Year Project</span>
+      </div>
+      <p class="project-sub">An LLM-powered tool that analyzes submitted code and generates suggested improvements.</p>
+      <ul class="diff-list">
+        <li>Integrated the GPT-4 API with a Python backend to automatically detect issues and suggest fixes.</li>
+        <li>Designed the integration layer handling request formatting and response parsing for consistent, structured output.</li>
+        <li>Investigated real code-quality issues across test samples and iterated on prompt design to improve suggestion accuracy.</li>
+        <li>Reduced manual code review time by automating the initial pass of issue detection.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="project-title">Cloud File Storage System</span>
+        <span class="project-tag">AWS S3</span>
+      </div>
+      <p class="project-sub">A cloud-based file storage and retrieval system with secure uploads.</p>
+      <ul class="diff-list">
+        <li>Built a cloud-based file storage and retrieval system using AWS S3, implementing secure file uploads.</li>
+        <li>Demonstrated scalable cloud storage functionality, working directly with AWS infrastructure.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="file-path">~/experience — git log</div>
+
+    <div class="commit">
+      <div class="commit-dot"></div>
+      <div>
+        <div class="commit-role">Full Stack Java Development Intern</div>
+        <div class="commit-meta">Talent Shine Pvt. Ltd. · Java, SQL</div>
+        <p class="commit-desc">Assisted in developing web applications using Java full-stack technologies, working across backend logic and database operations. Worked on debugging, testing, and improving application performance.</p>
+      </div>
+    </div>
+
+    <div class="commit">
+      <div class="commit-dot"></div>
+      <div>
+        <div class="commit-role">AWS Intern</div>
+        <div class="commit-meta">BrainOvision · AWS, Cloud Computing</div>
+        <p class="commit-desc">Learned cloud computing concepts and explored services for application deployment, storage, and scalability.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="file-path">~/education.csv</div>
+    <table>
+      <thead>
+        <tr><th>Qualification</th><th>Institution</th><th>Year</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bachelor of Technology</td>
+          <td>Sir CR Reddy College of Engineering, Eluru</td>
+          <td>2021 – 2025</td>
+          <td>CGPA: 7.79</td>
+        </tr>
+        <tr>
+          <td>Intermediate (MPC)</td>
+          <td>SASI Junior College, Velivennu</td>
+          <td>2019 – 2021</td>
+          <td>91.9%</td>
+        </tr>
+        <tr>
+          <td>SSC</td>
+          <td>Lotus High School</td>
+          <td>2019</td>
+          <td>74.6%</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="two-col">
+      <div>
+        <div class="file-path">~/certifications.txt</div>
+        <ul class="list-plain">
+          <li>Python for Data Science — IBM Skills Network (Foundation)</li>
+          <li>Java Programming — NPTEL, 2024 (Level 1)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="file-path">~/strengths.txt</div>
+        <ul class="list-plain">
+          <li>Genuine curiosity about applied AI and building real products</li>
+          <li>Strong programming fundamentals and problem-solving skills</li>
+          <li>Quick learner, works well in collaborative environments</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="file-path">~/contact</div>
+    <div class="prompt">
+      <div class="prompt-line"><span class="sym">$</span>mail --to <a href="mailto:dileepkumarbadham@gmail.com">dileepkumarbadham@gmail.com</a></div>
+      <div class="prompt-line"><span class="sym">$</span>call --number <a href="tel:+919542167927">+91 95421 67927</a></div>
+      <div class="prompt-line"><span class="sym">$</span>open <a href="https://linkedin.com/in/dileep-kumar-badham" target="_blank" rel="noopener">linkedin.com/in/dileep-kumar-badham</a></div>
+    </div>
+    <div class="footnote">Tadepalligudem, Andhra Pradesh, India</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
